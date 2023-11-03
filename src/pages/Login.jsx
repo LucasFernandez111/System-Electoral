@@ -1,8 +1,6 @@
-
 export default function Login() {
   return (
     <>
-     
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -10,15 +8,30 @@ export default function Login() {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Ingrese a su cuenta
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight ">
+            Registre su cuenta
           </h2>
         </div>
 
+        
+          <label
+            for="Toggle3"
+            className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm p-2 rounded-md cursor-pointer dark:text-gray-800"
+          >
+            <input id="Toggle3" type="checkbox" className="hidden peer" />
+            <span className="px-4 py-2 rounded-l-md dark:bg-indigo-600   peer-checked:dark:bg-gray-300">
+              Fiscal
+            </span>
+            <span className="px-4 py-2 rounded-r-md dark:bg-gray-300 peer-checked:dark:bg-indigo-600 peer-checked:dark:text-white">
+              Votante
+            </span>
+          </label>
+        
+
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" method="POST">
-{/* Nombre de usuario */}
-          <div>
+            {/* Nombre de usuario */}
+            <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -37,7 +50,7 @@ export default function Login() {
               </div>
             </div>
 
-{/* Email */}
+            {/* Email */}
             <div>
               <label
                 htmlFor="email"
@@ -57,7 +70,7 @@ export default function Login() {
               </div>
             </div>
 
-{/* Contraseña */}
+            {/* Contraseña */}
             <div>
               <div className="flex items-center justify-between">
                 <label
@@ -66,7 +79,6 @@ export default function Login() {
                 >
                   Contraseña
                 </label>
-               
               </div>
               <div className="mt-2">
                 <input
@@ -85,11 +97,25 @@ export default function Login() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Iniciar
+                Registrar
+              </button>
+            </div>
+
+            <div>
+              <p className="text-center text-xl font-medium leading-6 text-gray-900">
+                ó
+              </p>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Iniciar Sesión
               </button>
             </div>
           </form>
-
         </div>
       </div>
     </>

@@ -1,9 +1,10 @@
-import Example from "./pages/Home";
+
+import Login from "./pages/Login";
 
 function App() {
   return (
     <>
-      <Example></Example>
+      <Login className="bg-yellow-800"></Login>
     </>
   );
 }
