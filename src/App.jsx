@@ -1,5 +1,11 @@
+import Menu from "./pages/menu";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Menu />
+    </>
+  );
 }
 
 export default App;
