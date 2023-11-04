@@ -1,12 +1,11 @@
-
-import Login from "./pages/Login";
+import { BrowserRouter } from "react-router-dom";
+import Routers from "./routes/routes";
 
 function App() {
   return (
-    <>
-      <Login className="bg-yellow-800"></Login>
-    </>
+    <BrowserRouter>
+      <Routers />
+    </BrowserRouter>
   );
 }
-
 export default App;

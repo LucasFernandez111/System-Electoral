@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
+import CardPost from "../components/CardPost";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -23,10 +23,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+const DashBoard = () => {
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full ">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -201,15 +201,28 @@ export default function Example() {
 
         <header className="bg-white shadow">
           <div className="justify-center flex  px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold  text-gray-900">FISCAL</h1>
+            <h1 className="bg-gradient-to-r text-transparent text-3xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">
+              FISCAL
+            </h1>
           </div>
         </header>
-        <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            {/* Your content */}
+        <main className="bg-gray-100 overflow-y-scroll ">
+          <div className="mx-auto flex  flex-col gap-y-10 max-w-7xl py-6 sm:px-6 lg:px-8">
+            <CardPost
+              image={
+                "https://www.clarin.com/2023/06/26/nYamSgFv1_1256x620__1.jpg"
+              }
+            />
+            <CardPost
+              image={
+                "https://www.lamañanaonline.com.ar/media/fotos/menu_20230617000254.jpg"
+              }
+            />
           </div>
         </main>
       </div>
     </>
   );
-}
+};
+
+export default DashBoard;
