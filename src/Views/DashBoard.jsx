@@ -61,7 +61,10 @@ const DashBoard = () => {
                     </div>
                   </div>
                   <div className="hidden md:block">
-                    <div className="ml-4 flex items-center md:ml-6">
+                    <div className="ml-4 flex gap-7 items-center md:ml-6">
+                      <button className=" bg-sky-600 px-4 py-2 bg-opacity-75 rounded-md text-white text-sm font-semibold">
+                        Crear Post
+                      </button>
                       {/* Tinker Button */}
                       {/* <button
                         type="button"
