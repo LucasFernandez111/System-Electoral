@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Login from "../pages/Login";
-import DashBoard from "../pages/DashBoard";
-import Register from "../pages/Register";
-import Partidos from "../pages/Partidos";
+import Login from "../Views/Login";
+import DashBoard from "../Views/DashBoard";
+import Register from "../Views/Register";
+import Partidos from "../Views/Partidos";
 import Votar from "../components/Votation";
 
 import CardPost from "../components/CardPost";
