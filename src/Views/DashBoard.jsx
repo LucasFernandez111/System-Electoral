@@ -3,6 +3,8 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import MenuPost from "../components/MenuPost";
 import { useState } from "react";
+import ModalPost from "../components/ModalPost";
+import Votar from "../components/Votation";
 
 const user = {
   name: "Tom Cook",
@@ -13,7 +15,7 @@ const user = {
 const navigation = [
   { name: "Inicio", contValue: "Post", current: true },
   { name: "Votar", contValue: "Votar", current: false },
-  { name: "Seguimiento y Resultado", contValue: "Result", current: false },
+  { name: "Seguimiento y Resultado", contValue: "Seguimiento", current: false },
 ];
 const userNavigation = [
   { name: "Tú Perfil", href: "#" },
@@ -26,6 +28,7 @@ function classNames(...classes) {
 
 const DashBoard = () => {
   const [content, setContent] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const contentRender = (value) => {
     switch (value) {
@@ -33,11 +36,9 @@ const DashBoard = () => {
         return <MenuPost></MenuPost>;
 
       case "Votar":
-        return null;
+        return <Votar></Votar>;
 
-      case "CreatePost":
-        return null;
-      case "Result":
+      case "Seguimiento":
         return null;
       default:
         return <MenuPost></MenuPost>;
@@ -45,6 +46,10 @@ const DashBoard = () => {
   };
   return (
     <>
+      <ModalPost
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      ></ModalPost>
       <div className="min-h-full ">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -85,23 +90,13 @@ const DashBoard = () => {
                     <div className="ml-4 flex gap-7 items-center md:ml-6">
                       <button
                         onClick={() => {
-                          setContent("CreatePost");
+                          setIsModalOpen(true);
                         }}
-                        className=" bg-sky-600 hover:bg-sky-500 px-4 py-2 bg-opacity-75 rounded-md text-white text-sm font-semibold"
+                        className=" bg-sky-600 hover:bg-sky-500 px-4 py-2 bg-opacity-75 rounded-md cursor-pointer text-white text-sm font-semibold"
                       >
                         Crear Post
                       </button>
-                      {/* Tinker Button */}
-                      {/* <button
-                        type="button"
-                        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button> */}
 
-                      {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
                           <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -228,7 +223,7 @@ const DashBoard = () => {
           )}
         </Disclosure>
 
-        <header className="bg-white shadow">
+        <header className="bg-white shadow-xl ">
           <div className="justify-center flex  px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="bg-gradient-to-r text-transparent text-3xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">
               FISCAL

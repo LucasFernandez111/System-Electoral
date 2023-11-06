@@ -8,7 +8,6 @@ import Partidos from "../Views/Partidos";
 import Votar from "../components/Votation";
 
 import CardPost from "../components/CardPost";
-import Results from "../components/Results";
 const Routers = () => {
   return (
     <Routes>
@@ -19,7 +18,7 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/inicio" element={<DashBoard />} />
-      <Route path="/prueba" element={<CardPost />} />
+      <Route path="/prueba" element={<ModalPost></ModalPost>} />
     </Routes>
   );
 };
