@@ -1,7 +1,9 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import CardPost from "../components/CardPost";
+import MenuPost from "../components/MenuPost";
+import { useState } from "react";
+
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -9,13 +11,12 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Inicio", href: "#", current: true },
-  { name: "Votar", href: "#", current: false },
-  { name: "Seguimiento y Resultado", href: "#", current: false },
+  { name: "Inicio", contValue: "Post", current: true },
+  { name: "Votar", contValue: "Votar", current: false },
+  { name: "Seguimiento y Resultado", contValue: "Result", current: false },
 ];
 const userNavigation = [
   { name: "Tú Perfil", href: "#" },
-
   { name: "Cerrar Sesion", href: "#" },
 ];
 
@@ -24,6 +25,24 @@ function classNames(...classes) {
 }
 
 const DashBoard = () => {
+  const [content, setContent] = useState();
+
+  const contentRender = (value) => {
+    switch (value) {
+      case "Post":
+        return <MenuPost></MenuPost>;
+
+      case "Votar":
+        return null;
+
+      case "CreatePost":
+        return null;
+      case "Result":
+        return null;
+      default:
+        return <MenuPost></MenuPost>;
+    }
+  };
   return (
     <>
       <div className="min-h-full ">
@@ -45,7 +64,9 @@ const DashBoard = () => {
                         {navigation.map((item) => (
                           <a
                             key={item.name}
-                            href={item.href}
+                            onClick={() => {
+                              setContent(item.contValue);
+                            }}
                             className={classNames(
                               item.current
                                 ? "bg-gray-900 text-white"
@@ -61,7 +82,15 @@ const DashBoard = () => {
                     </div>
                   </div>
                   <div className="hidden md:block">
-                    <div className="ml-4 flex items-center md:ml-6">
+                    <div className="ml-4 flex gap-7 items-center md:ml-6">
+                      <button
+                        onClick={() => {
+                          setContent("CreatePost");
+                        }}
+                        className=" bg-sky-600 hover:bg-sky-500 px-4 py-2 bg-opacity-75 rounded-md text-white text-sm font-semibold"
+                      >
+                        Crear Post
+                      </button>
                       {/* Tinker Button */}
                       {/* <button
                         type="button"
@@ -207,18 +236,7 @@ const DashBoard = () => {
           </div>
         </header>
         <main className="bg-gray-100 overflow-y-scroll ">
-          <div className="mx-auto flex  flex-col gap-y-10 max-w-7xl py-6 sm:px-6 lg:px-8">
-            <CardPost
-              image={
-                "https://www.clarin.com/2023/06/26/nYamSgFv1_1256x620__1.jpg"
-              }
-            />
-            <CardPost
-              image={
-                "https://www.lamañanaonline.com.ar/media/fotos/menu_20230617000254.jpg"
-              }
-            />
-          </div>
+          {contentRender(content)}
         </main>
       </div>
     </>
