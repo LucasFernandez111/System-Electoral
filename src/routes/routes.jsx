@@ -6,19 +6,21 @@ import DashBoard from "../Views/DashBoard";
 import Register from "../Views/Register";
 import Partidos from "../Views/Partidos";
 import Votar from "../components/Votation";
+import ModalPost from "../components/ModalPost";
+import Results from "../components/Results";
+import { Result } from "postcss";
 
-import CardPost from "../components/CardPost";
 const Routers = () => {
   return (
     <Routes>
 
-      <Route path="/resultados" element={<Results />} /> 
+     
       <Route path="/votar" element={<Votar />} />
       <Route path="/partidos-selection" element={<Partidos />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/inicio" element={<DashBoard />} />
-      <Route path="/prueba" element={<ModalPost></ModalPost>} />
+      <Route path="/prueba" element={<Results/>} />
     </Routes>
   );
 };
