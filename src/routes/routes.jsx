@@ -7,9 +7,11 @@ import Partidos from "../pages/Partidos";
 import Votar from "../components/Votation";
 
 import CardPost from "../components/CardPost";
+import Results from "../components/Results";
 const Routers = () => {
   return (
     <Routes>
+      <Route path="/resultados" element={<Results />} />
        <Route path="/votar" element={<Votar />} />
       <Route path="/partidos-selection" element={<Partidos />} />
        <Route path="/register" element={<Register />} />
