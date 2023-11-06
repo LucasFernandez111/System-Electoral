@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import MenuPost from "../components/MenuPost";
 import { useState } from "react";
 import ModalPost from "../components/ModalPost";
+import Votar from "../components/Votation";
 
 const user = {
   name: "Tom Cook",
@@ -14,7 +15,7 @@ const user = {
 const navigation = [
   { name: "Inicio", contValue: "Post", current: true },
   { name: "Votar", contValue: "Votar", current: false },
-  { name: "Seguimiento y Resultado", contValue: "Result", current: false },
+  { name: "Seguimiento y Resultado", contValue: "Seguimiento", current: false },
 ];
 const userNavigation = [
   { name: "Tú Perfil", href: "#" },
@@ -35,9 +36,9 @@ const DashBoard = () => {
         return <MenuPost></MenuPost>;
 
       case "Votar":
-        return null;
+        return <Votar></Votar>;
 
-      case "Result":
+      case "Seguimiento":
         return null;
       default:
         return <MenuPost></MenuPost>;
