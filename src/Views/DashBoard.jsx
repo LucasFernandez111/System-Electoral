@@ -9,6 +9,8 @@ import Results from "../components/Results";
 import Profile from "../components/Profile";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import storage from "../storage/storage";
 
 const user = {
   name: "Tom Cook",
@@ -46,6 +48,28 @@ const DashBoard = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [section, setSection] = useState("Publicaciones");
   const navigator = useNavigate();
+
+  const getDataUser = async () => {
+    const token = storage.get("authUser");
+    try {
+      const { data } = await axios.get(
+        "http://127.0.0.1:8000/api/user-profile",
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getDataUser();
+  }, []);
 
   const contentRender = (value) => {
     switch (value) {

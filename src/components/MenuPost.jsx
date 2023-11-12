@@ -28,6 +28,9 @@ const MenuPost = () => {
         listPost.map((post, index) => (
           <CardPost
             key={index}
+            title={post.title}
+            partido={post.partido}
+            content={post.content}
             image={
               "https://www.clarin.com/2023/06/26/nYamSgFv1_1256x620__1.jpg"
             }
