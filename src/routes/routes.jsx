@@ -5,7 +5,7 @@ import DashBoard from "../Views/DashBoard";
 import Register from "../Views/Register";
 import Partidos from "../Views/Partidos";
 import Votar from "../components/Votation";
-import Results from "../components/Results";
+import Profile from "../components/Profile";
 
 const Routers = () => {
   return (
@@ -16,7 +16,7 @@ const Routers = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/inicio" element={<DashBoard />} />
 
-      <Route path="/prueba" element={<Results />} />
+      <Route path="/prueba" element={<Profile />} />
     </Routes>
   );
 };

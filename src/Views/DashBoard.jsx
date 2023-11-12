@@ -5,6 +5,10 @@ import MenuPost from "../components/MenuPost";
 import { useState } from "react";
 import ModalPost from "../components/ModalPost";
 import Votar from "../components/Votation";
+import Results from "../components/Results";
+import Profile from "../components/Profile";
+import Register from "./Register";
+import { useNavigate } from "react-router-dom";
 
 const user = {
   name: "Tom Cook",
@@ -13,14 +17,16 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Inicio", contValue: "Post", current: true },
-  { name: "Votar", contValue: "Votar", current: false },
-  { name: "Seguimiento y Resultado", contValue: "Seguimiento", current: false },
+  { name: "Inicio", contValue: "Post", title:"Publicaciones", current: true },
+  { name: "Votar", contValue: "Votar", title:"Elecciones Presidenciales", current: false },
+  { name: "Seguimiento y Resultado", contValue: "Seguimiento", title:"Resultados de Votaciones", current: false },
 ];
 const userNavigation = [
-  { name: "Tú Perfil", href: "#" },
-  { name: "Cerrar Sesion", href: "#" },
+  { name: "Tú Perfil", contValue: "Perfil", current: false },
+  { name: "Cerrar Sesion", contValue: "Register", leave: true, current: false },
 ];
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -29,28 +35,44 @@ function classNames(...classes) {
 const DashBoard = () => {
   const [content, setContent] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen]=useState (false);
+  const [section,setSection] = useState('Publicaciones')
+  const navigator = useNavigate();
 
   const contentRender = (value) => {
     switch (value) {
       case "Post":
         return <MenuPost></MenuPost>;
 
+      case "Register":
+       
+        return <Register></Register>;
+
+      case "Perfil":
+        return <Profile></Profile>;
+
       case "Votar":
+      
         return <Votar></Votar>;
 
       case "Seguimiento":
-        return null;
+        return <Results></Results>;
       default:
         return <MenuPost></MenuPost>;
     }
   };
   return (
     <>
+    <Profile
+    ProfileOpen={isProfileOpen}
+    setProfile={setIsProfileOpen}
+    >
+    </Profile>
       <ModalPost
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       ></ModalPost>
-      <div className="min-h-full ">
+      <div className="min-h-full lg:h-screen">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -70,12 +92,18 @@ const DashBoard = () => {
                           <a
                             key={item.name}
                             onClick={() => {
+                              
+                              if (item.leave) {
+                              return  navigator("/register") ;
+                                
+                              }
+                              setSection(item.title)
                               setContent(item.contValue);
                             }}
                             className={classNames(
                               item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                ? "bg-gray-900 text-white cursor-pointer"
+                                : "text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer",
                               "rounded-md px-3 py-2 text-sm font-medium"
                             )}
                             aria-current={item.current ? "page" : undefined}
@@ -96,6 +124,7 @@ const DashBoard = () => {
                       >
                         Crear Post
                       </button>
+                      <h1 className="bg-gradient-to-r text-transparent text-xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">FISCAL</h1>
 
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -123,7 +152,15 @@ const DashBoard = () => {
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
                                   <a
-                                    href={item.href}
+                                    onClick={() => {
+                                      if (item.leave) {
+                                        return navigator("/register");
+                                      }
+                                
+                                      setIsProfileOpen(true)
+                                     
+                                     
+                                    }}
                                     className={classNames(
                                       active ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700"
@@ -166,12 +203,12 @@ const DashBoard = () => {
                     <Disclosure.Button
                       key={item.name}
                       as="a"
-                      href={item.href}
                       className={classNames(
+                        "page",
                         item.current
                           ? "bg-gray-900 text-white"
                           : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block rounded-md px-3 py-2 text-base font-medium"
+                        "rounded-md px-3 py-2 text-sm font-medium"
                       )}
                       aria-current={item.current ? "page" : undefined}
                     >
@@ -210,7 +247,8 @@ const DashBoard = () => {
                       <Disclosure.Button
                         key={item.name}
                         as="a"
-                        href={item.href}
+
+                        
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}
@@ -226,11 +264,11 @@ const DashBoard = () => {
         <header className="bg-white shadow-xl ">
           <div className="justify-center flex  px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="bg-gradient-to-r text-transparent text-3xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">
-              FISCAL
+              {section}
             </h1>
           </div>
         </header>
-        <main className="bg-gray-100 overflow-y-scroll ">
+        <main className="bg-gray-100 ">
           {contentRender(content)}
         </main>
       </div>

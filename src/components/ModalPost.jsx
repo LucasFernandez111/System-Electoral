@@ -8,8 +8,16 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
       {isModalOpen && (
         <div className="fixed inset-0  bg-gray-700 bg-opacity-75 transition-opacity   flex justify-center  items-center">
           <div className="bg-white rounded-xl transition-all   flex justify-center flex-col w-px-500 px-12 py-11 items-center gap-10">
+          <textarea
+              placeholder="Título..."
+              className="border-2 border-gray-400 font-semibold rounded-lg p-4"
+              name=""
+              id=""
+              cols="50"
+              rows="1"
+            ></textarea>
             <textarea
-              placeholder="Escriba su post..."
+              placeholder="Descripción..."
               className="border-2 border-gray-400 font-semibold rounded-lg p-4"
               name=""
               id=""
