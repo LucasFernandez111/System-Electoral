@@ -19,11 +19,18 @@ export default function Register() {
   });
   const navigate = useNavigate();
 
-  const handleRegister = async (partido) => {
-    setData((prevData) => ({
-      ...prevData,
-      partido: partido,
-    }));
+  const handleRegister = async () => {
+    // console.log(data);
+    // try {
+    //   const response = await axios.post(
+    //     "http://127.0.0.1:8000/api/register",
+    //     data,
+    //     { withCredentials: true }
+    //   );
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -38,10 +45,6 @@ export default function Register() {
       rol: rol,
     }));
   };
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <>
@@ -171,7 +174,7 @@ export default function Register() {
       )}
 
       {ShowSelectPartido && (
-        <Partidos handleRegister={handleRegister}></Partidos>
+        <Partidos handleRegister={handleRegister} setData={setData}></Partidos>
       )}
     </>
   );

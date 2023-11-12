@@ -1,4 +1,4 @@
-export default function Partidos({ handleRegister }) {
+export default function Partidos({ setData, handleRegister }) {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -17,7 +17,12 @@ export default function Partidos({ handleRegister }) {
           <div className="mb-8">
             <button
               value={"La libertad Avanza"}
-              onClick={(e) => console.log(e.target.value)}
+              onClick={(e) => {
+                setData((prevData) => ({
+                  ...prevData,
+                  partido: e.target.value,
+                }));
+              }}
               className="flex w-full justify-center rounded-md px-3 py-1.5 text-lg font-semibold leading-6 text-white shadow-sm  group bg-gradient-to-r from-violet-950 via-purple-700 to-purple-950 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800  "
             >
               La Libertad Avanza
@@ -27,12 +32,19 @@ export default function Partidos({ handleRegister }) {
           <div>
             <button
               value={"Unión Por La Patria"}
-              onClick={(e) => handleRegister(e.target.value)}
+              onClick={(e) => {
+                setData((prevData) => ({
+                  ...prevData,
+                  partido: e.target.value,
+                }));
+              }}
               className="flex w-full justify-center rounded-md px-3 py-1.5 text-lg font-semibold leading-6  shadow-sm  group bg-gradient-to-r from-sky-400 via-amber-400 to-sky-300 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800  "
             >
               Unión Por La Patria
             </button>
           </div>
+
+          <button onClick={handleRegister}>Confirmar</button>
         </div>
       </div>
     </>
