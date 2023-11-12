@@ -1,6 +1,6 @@
 import React from "react";
 
-const CardPost = ({ image }) => {
+const CardPost = ({ image, title, content, partido }) => {
   return (
     <section className="bg-white dark:bg-gray-900 shadow rounded-2xl w-70">
       <div className="container px-6 py-10 mx-auto">

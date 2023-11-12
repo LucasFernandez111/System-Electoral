@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import MenuPost from "../components/MenuPost";
@@ -17,16 +17,24 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Inicio", contValue: "Post", title:"Publicaciones", current: true },
-  { name: "Votar", contValue: "Votar", title:"Elecciones Presidenciales", current: false },
-  { name: "Seguimiento y Resultado", contValue: "Seguimiento", title:"Resultados de Votaciones", current: false },
+  { name: "Inicio", contValue: "Post", title: "Publicaciones", current: true },
+  {
+    name: "Votar",
+    contValue: "Votar",
+    title: "Elecciones Presidenciales",
+    current: false,
+  },
+  {
+    name: "Seguimiento y Resultado",
+    contValue: "Seguimiento",
+    title: "Resultados de Votaciones",
+    current: false,
+  },
 ];
 const userNavigation = [
   { name: "Tú Perfil", contValue: "Perfil", current: false },
   { name: "Cerrar Sesion", contValue: "Register", leave: true, current: false },
 ];
-
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -35,8 +43,8 @@ function classNames(...classes) {
 const DashBoard = () => {
   const [content, setContent] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen]=useState (false);
-  const [section,setSection] = useState('Publicaciones')
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [section, setSection] = useState("Publicaciones");
   const navigator = useNavigate();
 
   const contentRender = (value) => {
@@ -45,14 +53,12 @@ const DashBoard = () => {
         return <MenuPost></MenuPost>;
 
       case "Register":
-       
         return <Register></Register>;
 
       case "Perfil":
         return <Profile></Profile>;
 
       case "Votar":
-      
         return <Votar></Votar>;
 
       case "Seguimiento":
@@ -63,11 +69,10 @@ const DashBoard = () => {
   };
   return (
     <>
-    <Profile
-    ProfileOpen={isProfileOpen}
-    setProfile={setIsProfileOpen}
-    >
-    </Profile>
+      <Profile
+        ProfileOpen={isProfileOpen}
+        setProfile={setIsProfileOpen}
+      ></Profile>
       <ModalPost
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
@@ -92,12 +97,10 @@ const DashBoard = () => {
                           <a
                             key={item.name}
                             onClick={() => {
-                              
                               if (item.leave) {
-                              return  navigator("/register") ;
-                                
+                                return navigator("/register");
                               }
-                              setSection(item.title)
+                              setSection(item.title);
                               setContent(item.contValue);
                             }}
                             className={classNames(
@@ -124,7 +127,9 @@ const DashBoard = () => {
                       >
                         Crear Post
                       </button>
-                      <h1 className="bg-gradient-to-r text-transparent text-xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">FISCAL</h1>
+                      <h1 className="bg-gradient-to-r text-transparent text-xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">
+                        FISCAL
+                      </h1>
 
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -156,10 +161,8 @@ const DashBoard = () => {
                                       if (item.leave) {
                                         return navigator("/register");
                                       }
-                                
-                                      setIsProfileOpen(true)
-                                     
-                                     
+
+                                      setIsProfileOpen(true);
                                     }}
                                     className={classNames(
                                       active ? "bg-gray-100" : "",
@@ -247,8 +250,6 @@ const DashBoard = () => {
                       <Disclosure.Button
                         key={item.name}
                         as="a"
-
-                        
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}
@@ -268,9 +269,7 @@ const DashBoard = () => {
             </h1>
           </div>
         </header>
-        <main className="bg-gray-100 ">
-          {contentRender(content)}
-        </main>
+        <main className="bg-gray-100 ">{contentRender(content)}</main>
       </div>
     </>
   );
