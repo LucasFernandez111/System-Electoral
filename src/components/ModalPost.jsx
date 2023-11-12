@@ -7,8 +7,9 @@ import axios from "../api/axios";
 const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [partido, setPartido] = useState(storage.get("partido"));
 
+  const user = storage.get("user");
+  const [partido, setPartido] = useState(user.partido);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = storage.get("authUser");
@@ -27,7 +28,6 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
           },
         }
       );
-      console.log(data);
 
       window.location.reload();
     } catch (error) {

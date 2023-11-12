@@ -1,5 +1,6 @@
+import { CiCircleRemove } from "react-icons/ci";
 
-import {CiCircleRemove} from 'react-icons/ci'
+import storage from "../storage/storage";
 export default function Profile({ ProfileOpen, setProfile }) {
   return (
     <>
@@ -14,19 +15,22 @@ export default function Profile({ ProfileOpen, setProfile }) {
             <div className="space-y-4 text-center divide-y divide-gray-700">
               <div className="my-2 space-y-1">
                 <h2 className="text-xl font-semibold sm:text-2xl">
-                  Mario Dartinez
+                  {storage.get("user")?.name.toUpperCase()}
                 </h2>
                 <p className="px-5 text-sm sm:text-base dark:text-gray-400 italic">
-                  FISCAL
+                  {storage.get("user")?.rol.toUpperCase()}
                 </p>
-                 {/* <p className="px-5 text-xs sm:text-base dark:text-gray-400">
-                  La Libertad Avanza
-                </p>*/}
+                <p className="px-5 text-xs sm:text-base dark:text-gray-400">
+                  {storage.get("user")?.partido.toUpperCase()}
+                </p>
               </div>
             </div>
-            <CiCircleRemove  onClick={() => setProfile(false)}  size={50} className='hover:scale-110 cursor-pointer absolute  top-3 right-2 '></CiCircleRemove>
+            <CiCircleRemove
+              onClick={() => setProfile(false)}
+              size={50}
+              className="hover:scale-110 cursor-pointer absolute  top-3 right-2 "
+            ></CiCircleRemove>
           </div>
-         
         </div>
       )}
     </>
