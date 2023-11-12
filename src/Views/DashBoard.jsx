@@ -15,8 +15,7 @@ import storage from "../storage/storage";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
-  imageUrl:
-    "https://cdn-icons-png.flaticon.com/512/5709/5709782.png",
+  imageUrl: "https://cdn-icons-png.flaticon.com/512/5709/5709782.png",
 };
 const navigation = [
   { name: "Inicio", contValue: "Post", title: "Publicaciones", current: true },
@@ -47,6 +46,7 @@ const DashBoard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [section, setSection] = useState("Publicaciones");
+  const [partido, setPartido] = useState("");
   const navigator = useNavigate();
 
   const getDataUser = async () => {
@@ -61,7 +61,11 @@ const DashBoard = () => {
           },
         }
       );
-      console.log(data);
+      const val = storage.get("partido");
+
+      if (!val) {
+        storage.set("partido", data.data.partido);
+      }
     } catch (error) {
       console.log(error);
     }

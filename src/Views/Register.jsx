@@ -10,6 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("fiscal");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -20,17 +21,17 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    // console.log(data);
-    // try {
-    //   const response = await axios.post(
-    //     "http://127.0.0.1:8000/api/register",
-    //     data,
-    //     { withCredentials: true }
-    //   );
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    console.log(data);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/register",
+        data,
+        { withCredentials: true }
+      );
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = (e) => {
