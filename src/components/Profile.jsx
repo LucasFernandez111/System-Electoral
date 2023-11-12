@@ -19,9 +19,9 @@ export default function Profile({ ProfileOpen, setProfile }) {
                 <p className="px-5 text-sm sm:text-base dark:text-gray-400 italic">
                   FISCAL
                 </p>
-                <p className="px-5 text-xs sm:text-base dark:text-gray-400">
+                 {/* <p className="px-5 text-xs sm:text-base dark:text-gray-400">
                   La Libertad Avanza
-                </p>
+                </p>*/}
               </div>
             </div>
             <CiCircleRemove  onClick={() => setProfile(false)}  size={50} className='hover:scale-110 cursor-pointer absolute  top-3 right-2 '></CiCircleRemove>
