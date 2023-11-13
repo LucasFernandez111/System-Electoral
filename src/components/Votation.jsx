@@ -83,7 +83,7 @@ export default function Votar() {
                   setSelectPartido({ partido: LLA });
                   handleImageClick(0);
                 }
-
+                handleImageClick(0);
                 return;
               }}
             >
@@ -112,6 +112,7 @@ export default function Votar() {
                   setSelectPartido({ partido: UPP });
                   handleImageClick(1);
                 }
+                handleImageClick(1);
               }}
             >
               <img
