@@ -68,6 +68,7 @@ export default function Register() {
             <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
+                required
                 value=""
                 className="sr-only peer"
                 onChange={handleSwitchChange}
