@@ -11,6 +11,7 @@ import Register from "./Register";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import storage from "../storage/storage";
+import logoARG from "../assets/logoARG.png";
 
 const user = {
   name: "Tom Cook",
@@ -112,11 +113,11 @@ const DashBoard = () => {
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
-                  <div className="flex items-center">
+                  <div className="flex justify-center items-center">
                     <div className="flex-shrink-0">
                       <img
-                        className="h-16 w-16"
-                        src="./imagenes/votarg.png.png"
+                        className=" h-20   w-20 object-cover"
+                        src={logoARG}
                         alt="Your Company"
                       />
                     </div>

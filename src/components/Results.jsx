@@ -1,7 +1,23 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 export default function Results() {
+  const [votosLLA, setvotosLLA] = useState(0);
+  const [votosUPP, setvotosUPP] = useState(0);
+  const getListVotos = async () => {
+    const { data } = await axios.get("http://127.0.0.1:8000/api/list-voto", {
+      withCredentials: true,
+    });
+
+    setvotosLLA(data.data.LLA);
+    setvotosUPP(data.data.UPP);
+  };
+  useEffect(() => {
+    getListVotos();
+  }, []);
   return (
     <>
-    <div className="flex flex-row items-center justify-center gap-5">
+      <div className="flex flex-row items-center justify-center gap-5">
         <div className="max-w-sm rounded  overflow-hidden shadow-lg mt-6 bg-violet-950 ml-4 mr-4">
           <img
             className="  object-cover mt-10 "
@@ -9,9 +25,12 @@ export default function Results() {
             alt="Sunset in the mountains"
           />
           <div className="px-6 py-4">
-            <div className="font-bold text-3xl mb-2 text-center text-white">25,98%</div>
+            <div className="font-bold text-3xl mb-2 text-center text-white">
+              25,98%
+            </div>
+
             <p className="text-white text-base font-bold text-center">
-            34200 votos
+              {votosLLA}
             </p>
           </div>
         </div>
@@ -23,14 +42,15 @@ export default function Results() {
             alt="Sunset in the mountains"
           />
           <div className="px-6 py-4">
-            <div className="font-bold text-3xl mb-2 text-center text-white">20,38%</div>
+            <div className="font-bold text-3xl mb-2 text-center text-white">
+              20,38%
+            </div>
             <p className="text-white text-base font-bold text-center">
-              10200 votos
+              {votosUPP}
             </p>
           </div>
         </div>
-        
-        </div>      
+      </div>
     </>
   );
 }

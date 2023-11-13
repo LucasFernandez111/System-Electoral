@@ -4,8 +4,8 @@ export default function Partidos({ setData, handleRegister }) {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            className="mx-auto h-40 w-36"
+            src="../assets/votwhite.png"
             alt="Your Company"
           />
           <h2 className="mt-10  mb-8 text-center text-2xl font-bold leading-9 tracking-tight ">
@@ -43,10 +43,14 @@ export default function Partidos({ setData, handleRegister }) {
               Unión Por La Patria
             </button>
           </div>
-<div className="justify-center flex mt-9">
-          <button onClick={handleRegister} className="px-6  py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Confirmar</button>
-            </div>
+          <div className="justify-center flex mt-9">
+            <button
+              onClick={handleRegister}
+              className="px-6  py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Confirmar
+            </button>
+          </div>
         </div>
       </div>
     </>

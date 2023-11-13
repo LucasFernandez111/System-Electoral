@@ -14,8 +14,9 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
     const token = storage.get("authUser");
     const user = storage.get("user");
     setPartido(user.partido);
+
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         "http://127.0.0.1:8000/api/create-post",
         {
           title: title,
@@ -32,7 +33,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
 
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.log("Se excedio de limite de letras");
     }
   };
 
