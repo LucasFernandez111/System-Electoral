@@ -188,7 +188,8 @@ const DashBoard = () => {
                                     onClick={() => {
                                       if (item.leave) {
                                         storage.remove("authUser");
-                                        storage.remove("partido");
+                                        storage.remove("user");
+                                        window.location.reload();
                                         return;
                                       }
 
