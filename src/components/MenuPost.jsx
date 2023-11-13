@@ -12,7 +12,7 @@ const MenuPost = () => {
         "http://127.0.0.1:8000/api/list-all-post"
       );
 
-      setListPost(data.data);
+      setListPost(data.data.reverse());
     } catch (error) {
       console.log(error);
     }
