@@ -29,7 +29,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
         }
       );
 
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
     }
