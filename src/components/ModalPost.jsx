@@ -42,11 +42,11 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
           <div className="bg-white rounded-xl transition-all   flex justify-center flex-col w-px-500 px-12 py-11 items-center gap-10">
             <form onSubmit={handleSubmit}>
               <input
-                className="p-4 border-2 border-gray-400 font-semibold rounded-lg"
+                className="p-4 border-2 border-gray-400 font-semibold rounded-lg justify-center flex mb-2"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
-                placeholder="Titulo"
+                placeholder="Título"
               />
 
               <textarea

@@ -43,8 +43,10 @@ export default function Partidos({ setData, handleRegister }) {
               Unión Por La Patria
             </button>
           </div>
-
-          <button onClick={handleRegister}>Confirmar</button>
+<div className="justify-center flex mt-9">
+          <button onClick={handleRegister} className="px-6  py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Confirmar</button>
+            </div>
         </div>
       </div>
     </>
