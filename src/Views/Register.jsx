@@ -63,6 +63,7 @@ export default function Register() {
             <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight ">
               Registre su cuenta
             </h2>
+            <p className="mr-4">Seleccione si desea ser Fiscal o Votante.</p>
           </div>
           <div className="flex justify-center mt-3">
             <label className="relative inline-flex items-center cursor-pointer">

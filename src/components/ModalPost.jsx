@@ -69,7 +69,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
                   color="blue-gray"
                   size="sm"
                 >
-                  <IoMdPhotos size={30}></IoMdPhotos>
+                  
                 </IconButton>
                 <div className="flex justify-between gap-4">
                   <button
@@ -82,7 +82,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
                   <input
                     type="submit"
                     value={"Publicar Post"}
-                    className=" bg-gray-900 text-white p-2 rounded-lg font-semibold"
+                    className=" bg-gray-900 text-white p-2 rounded-lg font-semibold cursor-pointer hover:bg-gray-800"
                   />
                 </div>
               </div>

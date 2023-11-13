@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import storage from "../storage/storage";
+import Voted from "./Voted";
 
 export default function Votar() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -60,7 +61,7 @@ export default function Votar() {
       {verifyVoto && (
         <div>
           {/* CREA EL COMPONENTE Y LO METES ACA --------------------------- */}
-          <h1>Usted ya voto!</h1>
+          <Voted/>
         </div>
       )}
 
