@@ -7,12 +7,13 @@ import axios from "../api/axios";
 const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [partido, setPartido] = useState("");
 
-  const user = storage.get("user");
-  const [partido, setPartido] = useState(user.partido);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = storage.get("authUser");
+    const user = storage.get("user");
+    setPartido(user.partido);
     try {
       const { data } = await axios.post(
         "http://127.0.0.1:8000/api/create-post",

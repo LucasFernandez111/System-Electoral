@@ -61,7 +61,8 @@ const DashBoard = () => {
           },
         }
       );
-      const val = storage.get("user");
+      setPartido(data.data.partido);
+      const val = await storage.get("user");
 
       if (!val) {
         storage.set("user", data.data);
