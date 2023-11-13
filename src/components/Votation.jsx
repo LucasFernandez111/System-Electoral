@@ -31,8 +31,8 @@ export default function Votar() {
   };
 
   const handleSubmit = async () => {
-    const token = storage.get("authUser");
     try {
+      const token = storage.get("authUser");
       const { data } = await axios.post(
         "http://127.0.0.1:8000/api/create-voto",
         selectPartido,
@@ -51,7 +51,7 @@ export default function Votar() {
       });
 
       storage.set("user", user.data.data);
-      window.location.reaload();
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -80,10 +80,12 @@ export default function Votar() {
               }`}
               onClick={() => {
                 if (!select) {
-                  setSelect(true);
                   setSelectPartido({ partido: LLA });
                   handleImageClick(0);
+                  setSelect(true);
+                  return;
                 }
+                setSelect(false);
                 handleImageClick(0);
                 return;
               }}
@@ -108,11 +110,13 @@ export default function Votar() {
               }`}
               onClick={() => {
                 if (!select) {
-                  setSelect(true);
-
                   setSelectPartido({ partido: UPP });
                   handleImageClick(1);
+                  setSelect(true);
+                  return;
                 }
+                setSelect(false);
+
                 handleImageClick(1);
               }}
             >
