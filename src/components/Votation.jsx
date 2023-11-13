@@ -6,6 +6,7 @@ export default function Votar() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectPartido, setSelectPartido] = useState({ partido: "" });
   const [verifyVoto, setVerifyVoto] = useState(false);
+  const [select, setSelect] = useState(false);
 
   useEffect(() => {
     const user = storage.get("user");
@@ -77,8 +78,13 @@ export default function Votar() {
                 selectedImage === 0 ? "border-4 border-blue-800" : ""
               }`}
               onClick={() => {
-                setSelectPartido({ partido: LLA });
-                handleImageClick(0);
+                if (!select) {
+                  setSelect(true);
+                  setSelectPartido({ partido: LLA });
+                  handleImageClick(0);
+                }
+
+                return;
               }}
             >
               <img
@@ -100,8 +106,12 @@ export default function Votar() {
                 selectedImage === 1 ? "border-4 border-blue-800" : ""
               }`}
               onClick={() => {
-                setSelectPartido({ partido: UPP });
-                handleImageClick(1);
+                if (!select) {
+                  setSelect(true);
+
+                  setSelectPartido({ partido: UPP });
+                  handleImageClick(1);
+                }
               }}
             >
               <img
