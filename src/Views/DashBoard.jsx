@@ -61,10 +61,10 @@ const DashBoard = () => {
           },
         }
       );
-      const val = storage.get("partido");
+      const val = storage.get("user");
 
       if (!val) {
-        storage.set("partido", data.data.partido);
+        storage.set("user", data.data);
       }
     } catch (error) {
       console.log(error);
@@ -156,7 +156,7 @@ const DashBoard = () => {
                         Crear Post
                       </button>
                       <h1 className="bg-gradient-to-r text-transparent text-xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">
-                        FISCAL
+                        {storage.get("user")?.rol.toUpperCase()}
                       </h1>
 
                       <Menu as="div" className="relative ml-3">
@@ -187,14 +187,18 @@ const DashBoard = () => {
                                   <a
                                     onClick={() => {
                                       if (item.leave) {
-                                        return navigator("/register");
+                                        storage.remove("authUser");
+                                        storage.remove("partido");
+                                        return;
                                       }
 
                                       setIsProfileOpen(true);
                                     }}
                                     className={classNames(
-                                      active ? "bg-gray-100" : "",
-                                      "block px-4 py-2 text-sm text-gray-700"
+                                      active
+                                        ? "bg-gray-100 cursor-pointer"
+                                        : "",
+                                      "block px-4 py-2 text-sm  cursor-pointer text-gray-700"
                                     )}
                                   >
                                     {item.name}
