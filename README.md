@@ -32,7 +32,10 @@ Este proyecto es un sistema web interactivo desarrollado en React que permite a 
 
 ## Instalación y Ejecución Local
 
-1. Clona este repositorio: `git clone https://github.com/tu-usuario/sistema-de-votacion-react.git`
-2. Accede al directorio del proyecto: `cd sistema-de-votacion-react`
-3. Instala las dependencias: `npm install`
-4. Inicia la aplicación: `npm run dev`
+- Clona este repositorio: `git clone https://github.com/tu-usuario/https://github.com/LucasFernandez111/System-Electoral.git`
+
+- Accede al directorio del proyecto: `cd System-Electoral`
+
+- Instale las dependencias: `npm install`
+
+- Ejecute la aplicacion: `npm run dev`
