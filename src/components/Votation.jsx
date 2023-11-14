@@ -61,8 +61,7 @@ export default function Votar() {
     <>
       {verifyVoto && (
         <div>
-          {/* CREA EL COMPONENTE Y LO METES ACA --------------------------- */}
-          <Voted/>
+          <Voted />
         </div>
       )}
 

@@ -11,10 +11,6 @@ export default function Register() {
   const [rol, setRol] = useState("");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
 
-  const handleSwitchChange = () => {
-    setRol((prevRol) => (prevRol === "fiscal" ? "votante" : "fiscal"));
-  };
-
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -39,8 +35,21 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowSelectPartido(true);
 
+    const rolVotante = "Votante";
+
+    if (rol === rolVotante) {
+      setData((prevData) => ({
+        ...prevData,
+        name: name,
+        email: email,
+        password: password,
+        rol: rol,
+        partido: rolVotante,
+      }));
+      handleRegister();
+      return;
+    }
     setData((prevData) => ({
       ...prevData,
       name: name,
@@ -48,6 +57,8 @@ export default function Register() {
       password: password,
       rol: rol,
     }));
+
+    setShowSelectPartido(true);
   };
 
   return (
@@ -65,24 +76,29 @@ export default function Register() {
             </h2>
           </div>
           <div className="flex justify-center mt-3">
-
-            <fieldset>
+            <fieldset className="font-medium">
               <legend className="mb-2">Seleccione su Rol</legend>
 
               <input
                 id="draft"
                 className="peer/draft"
                 type="radio"
+                value={"Votante"}
+                onClick={(e) => setRol(e.target.value)}
                 name="status"
-                checked
               />
-              <label for="draft" className="peer-checked/draft:text-sky-500 mr-3">
+              <label
+                for="draft"
+                className="peer-checked/draft:text-sky-500 mr-3"
+              >
                 Votante
               </label>
 
               <input
                 id="published"
                 className="peer/published"
+                value={"fiscal"}
+                onChange={(e) => setRol(e.target.value)}
                 type="radio"
                 name="status"
               />
@@ -100,7 +116,6 @@ export default function Register() {
                 Los fiscales podrán realizar publicaciones personalizadas.
               </div>
             </fieldset>
-
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

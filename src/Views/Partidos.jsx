@@ -24,7 +24,7 @@ export default function Partidos({ setData, handleRegister }) {
                   partido: e.target.value,
                 }));
               }}
-              className="flex w-full justify-center rounded-md px-3 py-1.5 text-lg font-semibold leading-6 text-white shadow-sm  bg-gradient-to-r from-violet-950 via-purple-700 to-purple-950  dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 hover:scale-110 "
+              className="flex w-full justify-center rounded-md px-3 py-1.5 text-lg font-semibold leading-6 text-white shadow-sm  bg-gradient-to-r from-violet-950 via-purple-700 to-purple-950  dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 hover:scale-110 duration-200 "
             >
               La Libertad Avanza
             </button>
@@ -39,7 +39,7 @@ export default function Partidos({ setData, handleRegister }) {
                   partido: e.target.value,
                 }));
               }}
-              className="flex w-full justify-center rounded-md px-3 py-1.5 text-lg font-semibold leading-6  shadow-sm  bg-gradient-to-r from-sky-400 via-amber-400 to-sky-300 dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 hover:scale-110 "
+              className="flex w-full justify-center rounded-md px-3 py-1.5 text-lg font-semibold leading-6  shadow-sm  bg-gradient-to-r from-sky-400 via-amber-400 to-sky-300 dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 hover:scale-110  duration-200"
             >
               Unión Por La Patria
             </button>
