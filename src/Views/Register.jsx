@@ -63,22 +63,44 @@ export default function Register() {
             <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight ">
               Registre su cuenta
             </h2>
-            <p className="mr-4">Seleccione si desea ser Fiscal o Votante.</p>
           </div>
           <div className="flex justify-center mt-3">
-            <label className="relative inline-flex items-center cursor-pointer">
+
+            <fieldset>
+              <legend className="mb-2">Seleccione su Rol</legend>
+
               <input
-                type="checkbox"
-                required
-                value=""
-                className="sr-only peer"
-                onChange={handleSwitchChange}
+                id="draft"
+                className="peer/draft"
+                type="radio"
+                name="status"
+                checked
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
-              <span className="ms-3 text-sm font-medium text-black dark:text-black">
-                {rol}
-              </span>
-            </label>
+              <label for="draft" className="peer-checked/draft:text-sky-500 mr-3">
+                Votante
+              </label>
+
+              <input
+                id="published"
+                className="peer/published"
+                type="radio"
+                name="status"
+              />
+              <label
+                for="published"
+                className="peer-checked/published:text-sky-500"
+              >
+                Fiscal
+              </label>
+
+              <div className="hidden peer-checked/draft:block mb-1">
+                Los votantes podrán visualizar distintos tipos de publicaciones.
+              </div>
+              <div className="hidden peer-checked/published:block mb-1">
+                Los fiscales podrán realizar publicaciones personalizadas.
+              </div>
+            </fieldset>
+
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
