@@ -1,9 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import percentageVotes from "../functions/functions";
 
 export default function Results() {
   const [votosLLA, setvotosLLA] = useState(0);
   const [votosUPP, setvotosUPP] = useState(0);
+  const [votosTotal, setvotosTotal] = useState(0);
+  const [percentage, setPercentage] = useState({
+    LLA: 0,
+    UPP: 0,
+  });
+
   const getListVotos = async () => {
     const { data } = await axios.get("http://127.0.0.1:8000/api/list-voto", {
       withCredentials: true,
@@ -11,6 +18,19 @@ export default function Results() {
 
     setvotosLLA(data.data.LLA);
     setvotosUPP(data.data.UPP);
+    setvotosTotal(data.data.total);
+
+    const { percentageOne, percentageTwo } = percentageVotes(
+      data.data.LLA,
+      data.data.UPP,
+      data.data.total
+    );
+
+    setPercentage((prev) => ({
+      ...prev,
+      LLA: percentageOne,
+      UPP: percentageTwo,
+    }));
   };
   useEffect(() => {
     getListVotos();
@@ -26,10 +46,10 @@ export default function Results() {
           />
           <div className="px-6 py-4">
             <div className="font-bold text-3xl mb-2 text-center text-white">
-              25,98%
+              {percentage.LLA}%
             </div>
 
-            <p className="text-white text-base font-bold text-center">
+            <p className="text-white text-lg font-bold text-center">
               {votosLLA}
             </p>
           </div>
@@ -43,9 +63,9 @@ export default function Results() {
           />
           <div className="px-6 py-4">
             <div className="font-bold text-3xl mb-2 text-center text-white">
-              20,38%
+              {percentage.UPP}%
             </div>
-            <p className="text-white text-base font-bold text-center">
+            <p className="text-white  text-lg font-bold text-center">
               {votosUPP}
             </p>
           </div>

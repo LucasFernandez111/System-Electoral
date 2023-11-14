@@ -3,6 +3,7 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Partidos from "./Partidos";
 import logoARG from "../assets/logoARG.png";
+import Voted from "../components/Voted";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
+  const [error, setError] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -29,7 +31,7 @@ export default function Register() {
       );
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      setError(true);
     }
   };
 
@@ -75,6 +77,8 @@ export default function Register() {
               Registre su cuenta
             </h2>
           </div>
+
+          {error && <Voted text={"Correo ya registrado...!"} />}
           <div className="flex justify-center mt-3">
             <fieldset className="font-medium">
               <legend className="mb-2">Seleccione su Rol</legend>
@@ -88,7 +92,7 @@ export default function Register() {
                 name="status"
               />
               <label
-                for="draft"
+                htmlFor="draft"
                 className="peer-checked/draft:text-sky-500 mr-3"
               >
                 Votante
@@ -103,7 +107,7 @@ export default function Register() {
                 name="status"
               />
               <label
-                for="published"
+                htmlFor="published"
                 className="peer-checked/published:text-sky-500"
               >
                 Fiscal

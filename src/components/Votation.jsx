@@ -61,7 +61,7 @@ export default function Votar() {
     <>
       {verifyVoto && (
         <div>
-          <Voted />
+          <Voted text={"Usted ya registró un voto."} />
         </div>
       )}
 

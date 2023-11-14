@@ -2,12 +2,14 @@ import { useState } from "react";
 import axios from "../api/axios";
 import storage from "../storage/storage";
 import logoARG from "../assets/logoARG.png";
+import Voted from "../components/Voted";
 
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,13 +20,16 @@ export default function Login() {
         password: password,
       });
 
+      if (data.status === 0) {
+        throw new Error("Error al iniciar sesión");
+      }
       storage.set("authUser", data.Token);
       setEmail("");
       setPassword("");
 
       navigate("/inicio");
     } catch (error) {
-      console.log(error);
+      setError(true);
     }
   };
   return (
@@ -32,6 +37,7 @@ export default function Login() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img className="mx-auto h-40   w-36 object-cover" src={logoARG} />
+          {error && <Voted text={"Correo o contraseña incorrectos...!"} />}
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight ">
             Iniciar Sesión
           </h2>
