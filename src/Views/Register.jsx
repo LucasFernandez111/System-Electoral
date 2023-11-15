@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Partidos from "./Partidos";
@@ -11,6 +11,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
+  const [error, setError] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -20,6 +21,19 @@ export default function Register() {
     partido: "",
   });
   const navigate = useNavigate();
+
+  const handleRegister = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/register",
+        data,
+        { withCredentials: true }
+      );
+      navigate("/login");
+    } catch (error) {
+      setError(true);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,9 +47,9 @@ export default function Register() {
         email: email,
         password: password,
         rol: rol,
-        partido: null,
+        partido: rolVotante,
       }));
-
+      handleRegister();
       return;
     }
     setData((prevData) => ({
@@ -64,6 +78,7 @@ export default function Register() {
             </h2>
           </div>
 
+          {error && <Voted text={"Correo ya registrado...!"} />}
           <div className="flex justify-center mt-3">
             <fieldset className="font-medium">
               <legend className="mb-2">Seleccione su Rol</legend>
