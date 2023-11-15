@@ -9,7 +9,7 @@ import Results from "../components/Results";
 import Profile from "../components/Profile";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import * as axios from "../api/axios";
 import storage from "../storage/storage";
 import logoARG from "../assets/logoARG.png";
 
@@ -19,7 +19,7 @@ const user = {
   imageUrl: "https://cdn-icons-png.flaticon.com/512/5709/5709782.png",
 };
 const navigation = [
-  { name: "Inicio", contValue: "Post", title: "Publicaciones", current: true },
+  { name: "Inicio", contValue: "Post", title: "Publicaciones", current: false },
   {
     name: "Votar",
     contValue: "Votar",
@@ -48,26 +48,26 @@ const DashBoard = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [section, setSection] = useState("Publicaciones");
   const [partido, setPartido] = useState("");
+  const[buttonPost,setButtonPost] = useState(true)
   const navigator = useNavigate();
 
   const getDataUser = async () => {
     const token = storage.get("authUser");
     try {
       const { data } = await axios.get(
-        "http://127.0.0.1:8000/api/user-profile",
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        "http://127.0.0.1:8000/api/user-profile"
       );
       setPartido(data.data.partido);
+      if(data.data.rol != 'fiscal'){
+        setButtonPost(false)
+      }
       const val = await storage.get("user");
+      
 
       if (!val) {
         storage.set("user", data.data);
       }
+
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +149,8 @@ const DashBoard = () => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex gap-7 items-center md:ml-6">
-                      <button
+                      {
+                        buttonPost && <button
                         onClick={() => {
                           setIsModalOpen(true);
                         }}
@@ -157,6 +158,8 @@ const DashBoard = () => {
                       >
                         Crear Post
                       </button>
+                      }
+                      
                       <h1 className="bg-gradient-to-r text-transparent text-xl font-bold  from-cyan-500 to-blue-500 bg-clip-text">
                         {storage.get("user")?.rol.toUpperCase()}
                       </h1>

@@ -8,11 +8,14 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [partido, setPartido] = useState("");
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = storage.get("authUser");
     const user = storage.get("user");
+
+    
     setPartido(user.partido);
 
     try {

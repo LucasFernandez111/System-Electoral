@@ -4,8 +4,12 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 
+import massaPhoto from "../assets/fotos-UXP/massa2.jpg"
+
 const MenuPost = () => {
   const [listPost, setListPost] = useState();
+  const LLA = 'La libertad Avanza'
+ 
   const getPost = async () => {
     try {
       const { data } = await axios.get(
@@ -25,17 +29,16 @@ const MenuPost = () => {
   return (
     <div className="mx-auto flex  flex-col gap-y-10 max-w-7xl py-6 sm:px-6 lg:px-8">
       {listPost &&
-        listPost.map((post, index) => (
-          <CardPost
-            key={index}
-            title={post.title}
-            partido={post.partido}
-            content={post.content}
-            image={
-              "https://www.clarin.com/2023/06/26/nYamSgFv1_1256x620__1.jpg"
-            }
-          />
-        ))}
+
+      listPost.map((post,index)=>{
+        if(post.partido === LLA){
+          return <CardPost image={"https://www.clarin.com/2023/06/26/nYamSgFv1_1256x620__1.jpg"} title={post.title} content={post.content} partido={post.partido} rol={post.rol} name={post.name} ></CardPost>
+        }
+
+          return <CardPost image={massaPhoto} title={post.title} content={post.content} partido={post.partido} rol={post.rol} name={post.name} ></CardPost>
+          return 
+      })
+}
     </div>
   );
 };
