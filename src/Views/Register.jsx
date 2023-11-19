@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Partidos from "./Partidos";
 import logoARG from "../assets/logoARG.png";
-import Voted from "../components/Voted";
-
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
-
+  const [register, setRegister] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -22,13 +20,15 @@ export default function Register() {
   });
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (register) {
+      handleRegister();
+    }
+  }, [register]);
+
   const handleRegister = async () => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/register",
-        data,
-        { withCredentials: true }
-      );
+      const response = await axios.post("/api/register", data);
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -47,20 +47,20 @@ export default function Register() {
         email: email,
         password: password,
         rol: rol,
-        partido: rolVotante,
+        partido: "Votante",
       }));
-      handleRegister();
-      return;
-    }
-    setData((prevData) => ({
-      ...prevData,
-      name: name,
-      email: email,
-      password: password,
-      rol: rol,
-    }));
+      setRegister(true);
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        name: name,
+        email: email,
+        password: password,
+        rol: rol,
+      }));
 
-    setShowSelectPartido(true);
+      setShowSelectPartido(true);
+    }
   };
 
   return (
@@ -78,7 +78,6 @@ export default function Register() {
             </h2>
           </div>
 
-          
           <div className="flex justify-center mt-3">
             <fieldset className="font-medium">
               <legend className="mb-2">Seleccione su Rol</legend>
@@ -221,7 +220,7 @@ export default function Register() {
       )}
 
       {ShowSelectPartido && (
-        <Partidos handleRegister={handleRegister} setData={setData}></Partidos>
+        <Partidos setRegister={setRegister} setData={setData}></Partidos>
       )}
     </>
   );
