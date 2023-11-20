@@ -1,5 +1,5 @@
 import logARG from "../assets/logoARG.png";
-export default function Partidos({ setData, setRegister }) {
+export default function Partidos({ setValue, setRegister }) {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -19,8 +19,8 @@ export default function Partidos({ setData, setRegister }) {
             <button
               value={"La libertad Avanza"}
               onClick={(e) => {
-                setData((prevData) => ({
-                  ...prevData,
+                setValue((prevValue) => ({
+                  ...prevValue,
                   partido: e.target.value,
                 }));
               }}
@@ -34,8 +34,8 @@ export default function Partidos({ setData, setRegister }) {
             <button
               value={"Unión Por La Patria"}
               onClick={(e) => {
-                setData((prevData) => ({
-                  ...prevData,
+                setValue((prevValue) => ({
+                  ...prevValue,
                   partido: e.target.value,
                 }));
               }}

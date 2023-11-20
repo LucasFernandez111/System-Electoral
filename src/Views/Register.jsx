@@ -3,6 +3,8 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Partidos from "./Partidos";
 import logoARG from "../assets/logoARG.png";
+import Alert from "../components/Alert";
+
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,8 +12,9 @@ export default function Register() {
   const [rol, setRol] = useState("");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
   const [register, setRegister] = useState(false);
+  const [error, setError] = useState(false);
 
-  const [data, setData] = useState({
+  const [value, setValue] = useState({
     name: "",
     email: "",
     password: "",
@@ -28,10 +31,13 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("/api/register", data);
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
+      const { data } = await axios.post("/api/register", value);
+
+      if (data.status != 200) {
+        throw new Error("Error Al iniciar sesion");
+      } else navigate("/login");
+    } catch (err) {
+      setError(true);
     }
   };
 
@@ -41,18 +47,19 @@ export default function Register() {
     const rolVotante = "Votante";
 
     if (rol === rolVotante) {
-      setData((prevData) => ({
-        ...prevData,
+      setValue((prevValue) => ({
+        ...prevValue,
         name: name,
         email: email,
         password: password,
         rol: rol,
         partido: "Votante",
       }));
+
       setRegister(true);
     } else {
-      setData((prevData) => ({
-        ...prevData,
+      setValue((prevValue) => ({
+        ...prevValue,
         name: name,
         email: email,
         password: password,
@@ -65,6 +72,11 @@ export default function Register() {
 
   return (
     <>
+      <Alert
+        text={"Usuario ya registrado..."}
+        setError={setError}
+        error={error}
+      ></Alert>
       {!ShowSelectPartido && (
         <div className="flex min-h-full flex-1 flex-col justify-center px-5 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm -mt-16">
@@ -220,7 +232,7 @@ export default function Register() {
       )}
 
       {ShowSelectPartido && (
-        <Partidos setRegister={setRegister} setData={setData}></Partidos>
+        <Partidos setRegister={setRegister} setValue={setValue}></Partidos>
       )}
     </>
   );
