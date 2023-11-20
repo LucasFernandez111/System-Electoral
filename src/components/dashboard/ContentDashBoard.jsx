@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -6,6 +6,7 @@ import logoARG from "../../assets/logoARG.png";
 import storage from "../../storage/storage";
 import Profile from "../Profile";
 import ModalPost from "../ModalPost";
+import LoadingPost from "../loading/LoadingPost";
 
 const user = {
   name: "Tom Cook",
@@ -258,7 +259,9 @@ const ContentDashBoard = ({
             </h1>
           </div>
         </header>
-        <main className="bg-gray-100 ">{contentRender(content)}</main>
+        <Suspense fallback={<LoadingPost></LoadingPost>}>
+          <main className="bg-gray-100 ">{contentRender(content)}</main>
+        </Suspense>
       </div>
     </>
   );

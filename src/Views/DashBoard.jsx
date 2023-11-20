@@ -3,18 +3,17 @@ import Votar from "../components/Votation";
 import Results from "../components/Results";
 import Profile from "../components/Profile";
 import Register from "./Register";
-import { useNavigate } from "react-router-dom";
 import LoadingModal from "../components/loading/loadingModal";
 import useGet from "../hooks/useGet";
 import { lazy } from "react";
 import delayForDemo from "../functions/delayForDemo";
 import storage from "../storage/storage";
 import { useEffect } from "react";
+import MenuPost from "../components/MenuPost";
 
 const ContentDashBoard = lazy(() =>
   delayForDemo(import("../components/dashboard/ContentDashBoard"))
 );
-const MenuPost = lazy(() => import("../components/MenuPost"));
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -57,31 +56,6 @@ const DashBoard = () => {
     if (data) return storage.set("user", data.data);
   }, [data]);
 
-  // const getDataUser = async () => {
-  //   try {
-
-  // };
-
-  // console.log(data);
-
-  // setPartido(data.data.partido);
-  // if (data.data.rol != "fiscal") {
-  //   setButtonPost(false);
-  // }
-  // const val = await storage.get("user");
-
-  // if (!val) {
-  //   storage.set("user", data.data);
-  // }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getDataUser();
-  // }, []);
-
   const contentRender = (value) => {
     switch (value) {
       case "Post":
@@ -99,7 +73,7 @@ const DashBoard = () => {
       case "Seguimiento":
         return <Results></Results>;
       default:
-        return <MenuPost></MenuPost>;
+        return <MenuPost />;
     }
   };
   return (

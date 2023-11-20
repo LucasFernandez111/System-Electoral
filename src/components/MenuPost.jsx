@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import massaPhoto from "../assets/fotos-UXP/massa2.jpg";
 import useGet from "../hooks/useGet";
+import LoadingPost from "./loading/LoadingPost";
 
 const MenuPost = () => {
   const [listPost, setListPost] = useState();
@@ -18,6 +19,7 @@ const MenuPost = () => {
   return (
     <div className="mx-auto flex  flex-col gap-y-10 max-w-7xl py-6 sm:px-6 lg:px-8">
       {listPost &&
+        !loading &&
         listPost.map((post, index) => {
           if (post.partido === LLA) {
             return (
@@ -47,6 +49,7 @@ const MenuPost = () => {
             ></CardPost>
           );
         })}
+      {loading && <LoadingPost />}
     </div>
   );
 };
