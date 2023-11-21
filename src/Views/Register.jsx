@@ -73,7 +73,7 @@ export default function Register() {
   return (
     <>
       <AlertError
-        text={"Usuario ya registrado..."}
+        text={"Correo ya registrado..."}
         setError={setError}
         error={error}
       />
