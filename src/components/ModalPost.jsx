@@ -8,14 +8,12 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [partido, setPartido] = useState("");
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = storage.get("authUser");
     const user = storage.get("user");
 
-    
     setPartido(user.partido);
 
     try {
@@ -43,7 +41,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
   return (
     <>
       {isModalOpen && (
-        <div className="fixed inset-0  bg-gray-700 bg-opacity-75 transition-opacity   flex justify-center  items-center">
+        <div className="fixed inset-0 z-50 bg-gray-700 bg-opacity-75 transition-opacity   flex justify-center  items-center">
           <div className="bg-white rounded-xl transition-all   flex justify-center flex-col w-px-500 px-12 py-11 items-center gap-10">
             <form onSubmit={handleSubmit}>
               <input
@@ -71,9 +69,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
                   className="items-center flex justify-center"
                   color="blue-gray"
                   size="sm"
-                >
-                  
-                </IconButton>
+                ></IconButton>
                 <div className="flex justify-between gap-4">
                   <button
                     onClick={() => setIsModalOpen(false)}

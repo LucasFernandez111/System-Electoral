@@ -1,7 +1,6 @@
 import React from "react";
 
 const Alert = ({ error, text, setError }) => {
-  console.log(error);
   return (
     <>
       {error && (

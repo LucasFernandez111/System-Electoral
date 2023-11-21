@@ -3,8 +3,8 @@ import axios from "../api/axios";
 import storage from "../storage/storage";
 import logoARG from "../assets/logoARG.png";
 import Voted from "../components/Voted";
-
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ export default function Login() {
         password: password,
       });
 
-      if (data.status === 0) {
+      if (data.status != 200) {
         throw new Error("Error al iniciar sesión");
       }
       storage.set("authUser", data.Token);
@@ -34,10 +34,15 @@ export default function Login() {
   };
   return (
     <>
+      <Alert
+        text={"Usuario o Contraseña incorrectos"}
+        setError={setError}
+        error={error}
+      ></Alert>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img className="mx-auto h-40   w-36 object-cover" src={logoARG} />
-          {error && <Voted text={"Correo o contraseña incorrectos...!"} />}
+
           <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight ">
             Iniciar Sesión
           </h2>
@@ -99,6 +104,17 @@ export default function Login() {
                 Ingresar
               </button>
             </div>
+            <div>
+              <p className="text-center text-xl font-medium leading-6 text-gray-900">
+                ó
+              </p>
+            </div>
+            <button
+              onClick={() => navigate("/register")}
+              className="flex w-full justify-center rounded-md bg-gray-300 border-2 border-indigo-600  px-3 py-1.5 text-sm font-semibold leading-6 text-gray-800 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Register
+            </button>
           </form>
         </div>
       </div>

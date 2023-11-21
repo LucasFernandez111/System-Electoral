@@ -17,7 +17,7 @@ const MenuPost = () => {
   }, [data]);
 
   return (
-    <div className="mx-auto flex  flex-col gap-y-10 max-w-7xl py-6 sm:px-6 lg:px-8">
+    <div className="mx-auto flex relative z-10 flex-col gap-y-10 max-w-7xl py-6 sm:px-6 lg:px-8">
       {listPost &&
         !loading &&
         listPost.map((post, index) => {

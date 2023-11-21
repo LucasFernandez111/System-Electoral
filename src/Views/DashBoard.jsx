@@ -53,7 +53,12 @@ const DashBoard = () => {
 
   const { data, error, loading } = useGet("/api/user-profile");
   useEffect(() => {
-    if (data) return storage.set("user", data.data);
+    if (data) {
+      storage.set("user", data.data);
+      if (data.data.rol === "Votante") {
+        setButtonPost(false);
+      }
+    }
   }, [data]);
 
   const contentRender = (value) => {

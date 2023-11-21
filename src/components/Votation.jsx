@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import storage from "../storage/storage";
 import Voted from "./Voted";
 import ConfirmedVote from "./VotoConfirmado";
+import { FaCheckCircle } from "react-icons/fa";
+import { Alert } from "@material-tailwind/react";
+import useGet from "../hooks/useGet";
 
 export default function Votar() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectPartido, setSelectPartido] = useState({ partido: "" });
   const [verifyVoto, setVerifyVoto] = useState(false);
+  const [alertVoto, setAlertVoto] = useState(false);
   const [select, setSelect] = useState(false);
 
   useEffect(() => {
@@ -32,27 +36,19 @@ export default function Votar() {
     }
   };
 
+  const { data } = useGet("/api/user-profile");
+
+  useEffect(() => {
+    if (data) {
+      storage.set("user", data.data);
+    }
+  }, [data]);
+
   const handleSubmit = async () => {
     try {
-      const token = storage.get("authUser");
-      const { data } = await axios.post(
-        "http://127.0.0.1:8000/api/create-voto",
-        selectPartido,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const user = await axios.get("http://127.0.0.1:8000/api/user-profile", {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post("/api/create-voto", selectPartido);
+      setAlertVoto(true);
 
-      storage.set("user", user.data.data);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -60,6 +56,16 @@ export default function Votar() {
   };
   return (
     <>
+      {alertVoto && (
+        <Alert
+          variant="filled"
+          animate={Animation}
+          icon={<FaCheckCircle size={20} />}
+          className="w-1/3 bg-green-600 font-semibold z-50 flex fixed right-3 "
+        >
+          Su voto se ha emitido correctamente...
+        </Alert>
+      )}
       {verifyVoto && (
         <div>
           <Voted text={"Usted ya registró un voto."} />
@@ -141,10 +147,7 @@ export default function Votar() {
                 if (!select) return;
 
                 handleSubmit();
-               
-              }
-            
-            }
+              }}
               className="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Emitir Voto

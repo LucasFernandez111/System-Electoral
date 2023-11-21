@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Partidos from "./Partidos";
 import logoARG from "../assets/logoARG.png";
-import Alert from "../components/Alert";
+import AlertError from "../components/Alert";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -33,7 +33,7 @@ export default function Register() {
     try {
       const { data } = await axios.post("/api/register", value);
 
-      if (data.status != 200) {
+      if (data.status != "OK") {
         throw new Error("Error Al iniciar sesion");
       } else navigate("/login");
     } catch (err) {
@@ -72,11 +72,11 @@ export default function Register() {
 
   return (
     <>
-      <Alert
+      <AlertError
         text={"Usuario ya registrado..."}
         setError={setError}
         error={error}
-      ></Alert>
+      />
       {!ShowSelectPartido && (
         <div className="flex min-h-full flex-1 flex-col justify-center px-5 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm -mt-16">

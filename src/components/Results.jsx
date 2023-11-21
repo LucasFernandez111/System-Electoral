@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import percentageVotes from "../functions/functions";
+import LoadingIcon from "./loading/LoadingIcon";
+import useGet from "../hooks/useGet";
 
 export default function Results() {
   const [votosLLA, setvotosLLA] = useState(0);
@@ -11,33 +13,31 @@ export default function Results() {
     UPP: 0,
   });
 
-  const getListVotos = async () => {
-    const { data } = await axios.get("http://127.0.0.1:8000/api/list-voto", {
-      withCredentials: true,
-    });
+  const { data, loading } = useGet("/api/list-voto");
 
-    setvotosLLA(data.data.LLA);
-    setvotosUPP(data.data.UPP);
-    setvotosTotal(data.data.total);
-
-    const { percentageOne, percentageTwo } = percentageVotes(
-      data.data.LLA,
-      data.data.UPP,
-      data.data.total
-    );
-
-    setPercentage((prev) => ({
-      ...prev,
-      LLA: percentageOne,
-      UPP: percentageTwo,
-    }));
-  };
   useEffect(() => {
-    getListVotos();
-  }, []);
+    if (data) {
+      setvotosLLA(data.data.LLA);
+      setvotosUPP(data.data.UPP);
+      setvotosTotal(data.data.total);
+
+      const { percentageOne, percentageTwo } = percentageVotes(
+        data.data.LLA,
+        data.data.UPP,
+        data.data.total
+      );
+
+      setPercentage((prev) => ({
+        ...prev,
+        LLA: percentageOne,
+        UPP: percentageTwo,
+      }));
+    }
+  }, [data]);
+
   return (
     <>
-      <div className="flex flex-row items-center justify-center gap-5">
+      <div className="flex flex-row items-center text-center justify-center gap-5">
         <div className="max-w-sm rounded  overflow-hidden shadow-lg mt-6 bg-violet-950 ml-4 mr-4">
           <img
             className="  object-cover mt-10 "
@@ -46,11 +46,11 @@ export default function Results() {
           />
           <div className="px-6 py-4">
             <div className="font-bold text-3xl mb-2 text-center text-white">
-              {percentage.LLA}%
+              {loading ? <LoadingIcon /> : `${percentage.LLA}%`}
             </div>
 
             <p className="text-white text-lg font-bold text-center">
-              {votosLLA}
+              {!loading && votosLLA}
             </p>
           </div>
         </div>
@@ -63,10 +63,10 @@ export default function Results() {
           />
           <div className="px-6 py-4">
             <div className="font-bold text-3xl mb-2 text-center text-white">
-              {percentage.UPP}%
+              {loading ? <LoadingIcon /> : `${percentage.UPP}%`}
             </div>
             <p className="text-white  text-lg font-bold text-center">
-              {votosUPP}
+              {!loading && votosUPP}
             </p>
           </div>
         </div>
