@@ -13,10 +13,14 @@ export default function Votar() {
   const [verifyVoto, setVerifyVoto] = useState(false);
   const [alertVoto, setAlertVoto] = useState(false);
   const [select, setSelect] = useState(false);
+  const [updateData, setUpdateData] = useState(false);
+  const [reload, setReload] = useState(false);
+
+  const { data } = useGet("/api/user-profile");
 
   useEffect(() => {
     const user = storage.get("user");
-
+    console.log(user);
     if (user.voto) {
       return setVerifyVoto(true);
     }
@@ -36,20 +40,20 @@ export default function Votar() {
     }
   };
 
-  const { data } = useGet("/api/user-profile");
-
   useEffect(() => {
     if (data) {
       storage.set("user", data.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
-  }, [data]);
+  }, [updateData]);
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post("/api/create-voto", selectPartido);
+      setUpdateData(true);
       setAlertVoto(true);
-
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -148,9 +152,13 @@ export default function Votar() {
 
                 handleSubmit();
               }}
-              className="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className={`px-4 py-3 transition-all bg-gradient-to-tr  ${
+                selectedImage === 1
+                  ? "from-cyan-500 to-blue-500"
+                  : "from-violet-800 to-yellow-200"
+              } font-semibold text-white  rounded-xl`}
             >
-              Emitir Voto
+              EMITIR VOTO
             </button>
           </div>
         </div>
