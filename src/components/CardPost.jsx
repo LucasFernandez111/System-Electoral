@@ -1,8 +1,8 @@
 import React from "react";
-
+import "animate.css";
 const CardPost = ({ image, title, content, name, partido, rol }) => {
   return (
-    <section className="bg-white dark:bg-gray-900 shadow rounded-2xl w-70">
+    <section className="animate__animated animate__fadeInDown  bg-white  dark:bg-gray-900 shadow rounded-2xl w-70">
       <div className="container px-6 py-10 mx-auto">
         <div className="mt-2 lg:-mx-6 lg:flex lg:items-center">
           <img

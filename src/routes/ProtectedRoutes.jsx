@@ -3,9 +3,9 @@ import storage from "../storage/storage";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoutes = ({ children }) => {
-  // const authUser = storage.get("authUser");
+  const authUser = storage.get("authUser");
 
-  // if (!authUser) return <Navigate to={"/login"} />;
+  if (!authUser) return <Navigate to={"/register"} />;
 
   return <Outlet />;
 };

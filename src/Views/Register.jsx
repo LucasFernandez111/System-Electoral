@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Partidos from "./Partidos";
-import { useEffect } from "react";
+import logoARG from "../assets/logoARG.png";
+import AlertError from "../components/Alert";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rol, setRol] = useState("fiscal");
+  const [rol, setRol] = useState("");
   const [ShowSelectPartido, setShowSelectPartido] = useState(false);
+  const [register, setRegister] = useState(false);
+  const [error, setError] = useState(false);
 
-  const [data, setData] = useState({
+  const [value, setValue] = useState({
     name: "",
     email: "",
     password: "",
@@ -20,64 +23,115 @@ export default function Register() {
   });
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (register) {
+      handleRegister();
+    }
+  }, [register]);
+
   const handleRegister = async () => {
-    console.log(data);
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/register",
-        data,
-        { withCredentials: true }
-      );
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
+      const { data } = await axios.post("/api/register", value);
+
+      if (data.status != "OK") {
+        throw new Error("Error Al iniciar sesion");
+      } else navigate("/login");
+    } catch (err) {
+      setError(true);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowSelectPartido(true);
 
-    setData((prevData) => ({
-      ...prevData,
-      name: name,
-      email: email,
-      password: password,
-      rol: rol,
-    }));
+    const rolVotante = "Votante";
+
+    if (rol === rolVotante) {
+      setValue((prevValue) => ({
+        ...prevValue,
+        name: name,
+        email: email,
+        password: password,
+        rol: rol,
+        partido: "Votante",
+      }));
+
+      setRegister(true);
+    } else {
+      setValue((prevValue) => ({
+        ...prevValue,
+        name: name,
+        email: email,
+        password: password,
+        rol: rol,
+      }));
+
+      setShowSelectPartido(true);
+    }
   };
 
   return (
     <>
+      <AlertError
+        text={"Correo ya registrado..."}
+        setError={setError}
+        error={error}
+      />
       {!ShowSelectPartido && (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-5 py-12 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm -mt-16">
             <img
-              className="mx-auto h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              className="mx-auto h-40 w-36 object-cover"
+              src={logoARG}
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight ">
+            <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight ">
               Registre su cuenta
             </h2>
           </div>
 
-          {/* <label
-          htmlFor="Toggle3"
-          className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm p-2 rounded-md cursor-pointer dark:text-gray-800"
-        >
-          <input
-            id="Toggle3"
-            name="fiscal"
-            type="checkbox"
-            value={rol}
-            onClick={(e) => setRol(e.target.name)}
-            className="hidden peer"
-          />
-          <span className="px-4 py-2 rounded-l-md dark:bg-indigo-600 text-white  peer-checked:dark:bg-gray-300 peer-checked:dark:text-gray-800 ">
-            Fiscal
-          </span>
-        </label> */}
+          <div className="flex justify-center mt-3">
+            <fieldset className="font-medium">
+              <legend className="mb-2">Seleccione su Rol</legend>
+
+              <input
+                id="draft"
+                className="peer/draft"
+                type="radio"
+                value={"Votante"}
+                onClick={(e) => setRol(e.target.value)}
+                name="status"
+              />
+              <label
+                htmlFor="draft"
+                className="peer-checked/draft:text-sky-500 mr-3"
+              >
+                Votante
+              </label>
+
+              <input
+                id="published"
+                className="peer/published"
+                value={"fiscal"}
+                onChange={(e) => setRol(e.target.value)}
+                type="radio"
+                name="status"
+              />
+              <label
+                htmlFor="published"
+                className="peer-checked/published:text-sky-500"
+              >
+                Fiscal
+              </label>
+
+              <div className="hidden peer-checked/draft:block mb-1">
+                Los votantes podrán visualizar distintos tipos de publicaciones.
+              </div>
+              <div className="hidden peer-checked/published:block mb-1">
+                Los fiscales podrán realizar publicaciones personalizadas.
+              </div>
+            </fieldset>
+          </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -164,18 +218,21 @@ export default function Register() {
                 </p>
               </div>
 
-              <div>
-                <button className="flex w-full justify-center rounded-md bg-gray-300 border-2 border-indigo-600  px-3 py-1.5 text-sm font-semibold leading-6 text-gray-800 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                  Iniciar Sesión
-                </button>
-              </div>
+              <div></div>
             </form>
+
+            <button
+              onClick={() => navigate("/login")}
+              className="flex w-full justify-center rounded-md bg-gray-300 border-2 border-indigo-600  px-3 py-1.5 text-sm font-semibold leading-6 text-gray-800 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Iniciar Sesión
+            </button>
           </div>
         </div>
       )}
 
       {ShowSelectPartido && (
-        <Partidos handleRegister={handleRegister} setData={setData}></Partidos>
+        <Partidos setRegister={setRegister} setValue={setValue}></Partidos>
       )}
     </>
   );

@@ -7,14 +7,17 @@ import axios from "../api/axios";
 const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [partido, setPartido] = useState("");
 
-  const user = storage.get("user");
-  const [partido, setPartido] = useState(user.partido);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = storage.get("authUser");
+    const user = storage.get("user");
+
+    setPartido(user.partido);
+
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         "http://127.0.0.1:8000/api/create-post",
         {
           title: title,
@@ -31,22 +34,22 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
 
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.log("Se excedio de limite de letras");
     }
   };
 
   return (
     <>
       {isModalOpen && (
-        <div className="fixed inset-0  bg-gray-700 bg-opacity-75 transition-opacity   flex justify-center  items-center">
+        <div className="fixed inset-0 z-50 bg-gray-700 bg-opacity-75 transition-opacity   flex justify-center  items-center">
           <div className="bg-white rounded-xl transition-all   flex justify-center flex-col w-px-500 px-12 py-11 items-center gap-10">
             <form onSubmit={handleSubmit}>
               <input
-                className="p-4 border-2 border-gray-400 font-semibold rounded-lg"
+                className="p-4 border-2 border-gray-400 font-semibold rounded-lg justify-center flex mb-2"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
-                placeholder="Titulo"
+                placeholder="Título"
               />
 
               <textarea
@@ -66,9 +69,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
                   className="items-center flex justify-center"
                   color="blue-gray"
                   size="sm"
-                >
-                  <IoMdPhotos size={30}></IoMdPhotos>
-                </IconButton>
+                ></IconButton>
                 <div className="flex justify-between gap-4">
                   <button
                     onClick={() => setIsModalOpen(false)}
@@ -80,7 +81,7 @@ const ModalPost = ({ isModalOpen, setIsModalOpen }) => {
                   <input
                     type="submit"
                     value={"Publicar Post"}
-                    className=" bg-gray-900 text-white p-2 rounded-lg font-semibold"
+                    className=" bg-gray-900 text-white p-2 rounded-lg font-semibold cursor-pointer hover:bg-gray-800"
                   />
                 </div>
               </div>
