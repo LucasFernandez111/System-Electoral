@@ -1,7 +1,19 @@
 import logARG from "../assets/logoARG.png";
-export default function Partidos({ setValue, setRegister }) {
+
+import { HiArrowLeft } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+export default function Partidos({ setValue, setRegister, error }) {
+  const navigate = useNavigate();
   return (
     <>
+      {error && (
+        <button
+          onClick={() => navigate(0)}
+          className="rounded-full p-4  bg-cyan-500 shadow-md border-gray-500 fixed left-60 top-24"
+        >
+          <HiArrowLeft color="white" size={20} />
+        </button>
+      )}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

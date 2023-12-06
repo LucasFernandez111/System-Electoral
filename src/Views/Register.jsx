@@ -30,9 +30,10 @@ export default function Register() {
   }, [register]);
 
   const handleRegister = async () => {
+    console.log(value);
     try {
       const { data } = await axios.post("/api/register", value);
-
+      console.log(data);
       if (data.status != "OK") {
         throw new Error("Error Al iniciar sesion");
       } else navigate("/login");
@@ -77,6 +78,7 @@ export default function Register() {
         setError={setError}
         error={error}
       />
+
       {!ShowSelectPartido && (
         <div className="flex min-h-full flex-1 flex-col justify-center px-5 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm -mt-16">
@@ -232,7 +234,11 @@ export default function Register() {
       )}
 
       {ShowSelectPartido && (
-        <Partidos setRegister={setRegister} setValue={setValue}></Partidos>
+        <Partidos
+          error={error}
+          setRegister={setRegister}
+          setValue={setValue}
+        ></Partidos>
       )}
     </>
   );
