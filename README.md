@@ -1,4 +1,4 @@
-# Sistema de Votación y Publicación de Posts sobre el Sistema Electoral Argentino con React
+# Sistema de Votación y Publicación de Posts sobre el Sistema Electoral Argentino 
 
 ## Descripción del Proyecto
 
